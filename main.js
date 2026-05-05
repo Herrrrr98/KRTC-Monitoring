@@ -1,11 +1,8 @@
-const fetch_api = require('node-fetch');
 const color = require('colors');
 const fs = require('fs');
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const config = require('./config.json');
-const { constants } = require('fs/promises');
 
-const data_sc = "https://activity.krtc.com.tw/Activity/measygo/map/Map.aspx/showMRTTrain";
 
 function curnt_time(bool){
     const time = new Date();
@@ -16,11 +13,11 @@ function curnt_time(bool){
 };
 
 var reqcount = 0;
-async function main(){
-        const response = await fetch(data_sc , {
+async function main(periodcallback){
+        const response = await fetch(config.Requesting_Target_URL , {
             method: 'POST',
             headers: {
-                'User-Agent': 'Windos11 x86',
+                'User-Agent': config['Fetch-API_User-Agent_Alias'],
                 'Content-Type': 'application/json',
             },
         });
@@ -28,48 +25,86 @@ async function main(){
         const data = await response.json();
         var Rnum = 0, Onum = 0;
         const ids = [];
-        for(var a = 0; a<= data.d.Result.length-1 ; a++){
-            if(String(data.d.Result[a].LineNo) === "O") Onum++;
-            else Rnum++;
+        for(let a = 0; a<= data.d.Result.length-1 ; a++){ // a = repeat
             ids[a] = data.d.Result[a].TrainID;
             if(Number(ids[a])<10) ids[a] = "0" + String(ids[a]);
+            String(data.d.Result[a].LineNo) === "O" ? Onum++ : Rnum++;
         };
-        console.log(`\n${curnt_time()}\n`+"Total requests:  " + `${reqcount}`.cyan);
-        console.log("Trains Online:");
+        console.log(`\n${curnt_time()}  Current refresh rate: ${config.timeouts.main_app/1000} sec.\n`+"Total requests:  " + `${reqcount}`.cyan);
+        console.log(`Current Analytics Period: ${periodcallback}`)
+        console.log(`Trains Online:     ${data.d.Result.length} in total`);
         console.log(`Red Line: ${Rnum}/28  Useage: ${(Rnum/28)*100}%`.red + `\nOrange Line: ${Onum}/14 Useage: ${(Onum/14)*100}%`.yellow);
-        for(a = 0; a <= data.d.Result.length-1; a++){
+        for(let a = 0; a <= data.d.Result.length-1; a++){
             data.d.Result[a].LineNo === "O" ? 
-            console.log(`Train No. ${ids[a]} at `+`${data.d.Result[a].Station}`.yellow) 
+            console.log(`Train No. ${ids[a]} at `+`${data.d.Result[a].Station}`.yellow)
             :
             console.log(`Train No. ${ids[a]} at `+`${data.d.Result[a].Station}`.red);
-                fs.appendFileSync(`TrData/${curnt_time(true)}/id_${ids[a]}.txt`, `${curnt_time()} | Train No. ${ids[a]} at ${data.d.Result[a].Station} \n`);
+            try {
+                fs.appendFileSync(`${config.src_Folder}/${curnt_time(true)}/id_${ids[a]}.txt`, `+ ${curnt_time()} | ${data.d.Result[a].Station} \n`)
+            }catch(e){
+                return false;
+            }
         };
+    return true;
+};
+
+async function DataAnalytics() {
+    try{
+        
+        var folders = fs.readdirSync(config.src_Folder, { withFileTypes: true }).filter(counts => counts.isDirectory());
+        for(let repeat = 0; repeat < folders.length; repeat++){
+            var folderPath = config.src_Folder + '/' + folders[repeat].name;
+            var files = fs.readdirSync(folderPath);
+            var filescount = files.length;
+            for(let inner_repeat = 0; inner_repeat < filescount; inner_repeat++){
+                var fileName = files[inner_repeat];
+                var file = fs.readFileSync(folderPath + '/'+ fileName, 'utf-8');
+                var contents = file.split("+");
+                //......(notice: contents[0] is empty)
+                console.log(`[[ ${folders[repeat].name + '/' + fileName} ]] \n ${contents} + "|" `);
+            }
+        }
+    }catch(e){
+        console.error(e);
+    }
 };
 
 async function app(){
     var start_app = true;
-    if(config.whether_restore_when_starting){ try{
-        fs.rmSync('TrData', {recursive: true});
-        fs.mkdirSync('TrData');
-        console.log("TrData".bgBlue + " is restored.  Please Wait for Starting".green);
-        await sleep(10000);
+    var keep_alive = true;
+    var DataAnalytics_Period = config.timeouts.DataAnalytics_Period;
+    if(config.whether_restore_when_starting){ 
+        try{
+            fs.rmSync(`${config.src_Folder}`, {recursive: true});
+            fs.mkdirSync(`${config.src_Folder}`);
+            console.log(`${config.src_Folder}`.bgBlue + " is restored.  Please Wait for Starting".green);
+            await sleep(config.timeouts.restore_when_starting);
     }catch(e){
         console.log("Found Errors when Restoring".bgRed + `\n${e}`.red);
         start_app = false;
     }};
-    try{    
-            fs.readdirSync(`TrData/${curnt_time(true)}`);
+    while(start_app){
+        try{    
+            fs.readdirSync(`${config.src_Folder}/${curnt_time(true)}`);
         }catch(e){
             console.warn(e);
             try {
-                fs.mkdirSync(`TrData/${curnt_time(true)}`);
+                fs.mkdirSync(`${config.src_Folder}/${curnt_time(true)}`);
+                console.log("ERROR has been solved:".bgGreen);
+                console.log(`${config.src_Folder}/${curnt_time(true)}`.bgBlue + " is Created.  Please Wait for Starting".green);
+                keep_alive = true;
+                await sleep(config.timeouts.restore_when_starting);
             }catch(err){
                 console.log("Found Errors when Creating New Folder".bgRed + `\n${err}`.red);
-                start_app = false;
+                start_app, keep_alive = false;
         }};
-    while(start_app){
-        console.clear();
-        main().catch(console.error);
-        await sleep(70000);
-}};
+        while(keep_alive){
+        console.log('\x1B[2J\x1B[3J\x1B[H\x1Bc');
+        if(DataAnalytics_Period==0) DataAnalytics();
+        keep_alive = await main(DataAnalytics_Period);
+        if(keep_alive) await sleep(config.timeouts.main_app);
+        DataAnalytics_Period--;
+        }
+    }
+};
 app().catch(console.error);

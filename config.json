@@ -1,3 +1,11 @@
 {
-  "whether_restore_when_starting": false
+  "whether_restore_when_starting": false,
+  "src_Folder": "TrData",
+  "Fetch-API_User-Agent_Alias": "Windows11 x86 Nodejs Program",
+  "Requesting_Target_URL": "https://activity.krtc.com.tw/Activity/measygo/map/Map.aspx/showMRTTrain",
+  "timeouts":{
+    "main_app": 80000,
+    "restore_when_starting": 10000,
+    "DataAnalytics_Period": 4
+  }
 }
