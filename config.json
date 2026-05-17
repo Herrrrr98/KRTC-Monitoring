@@ -4,8 +4,8 @@
   "Fetch-API_User-Agent_Alias": "Windows11 x86 Nodejs Program",
   "Requesting_Target_URL": "https://activity.krtc.com.tw/Activity/measygo/map/Map.aspx/showMRTTrain",
   "timeouts":{
-    "main_app": 10000,
+    "main_app": 30000,
     "restore_when_starting": 10000,
-    "DataAnalytics_Period": 1
+    "DataAnalytics_Period": 240
   }
 }
