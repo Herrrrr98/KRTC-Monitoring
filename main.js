@@ -6,7 +6,7 @@ const curnt_time = require('./function_curnt_time');
 
 
 var reqcount = 0;
-async function main(periodcallback){
+async function main(){
         try{
             const response = await fetch(config.Requesting_Target_URL , {
                 method: 'POST',
@@ -25,7 +25,6 @@ async function main(periodcallback){
                 String(data.d.Result[a].LineNo) === "O" ? Onum++ : Rnum++;
             };
             console.log(`\n${curnt_time()}  Current refresh rate: ${config.timeouts.main_app/1000} sec.\n`+"Total requests:  " + `${reqcount}`.cyan);
-            console.log(`Current Analytics Period: ${periodcallback}`)
             console.log(`Trains Online:     ${data.d.Result.length} in total`);
             console.log(`Red Line: ${Rnum}/28  WorkLoad: ${(Rnum/28)*100}%`.red + `\nOrange Line: ${Onum}/14 WorkLoad: ${(Onum/14)*100}%`.yellow);
             for(let a = 0; a <= data.d.Result.length-1; a++){
