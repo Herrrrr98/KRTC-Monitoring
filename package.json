@@ -3,5 +3,30 @@
     "colors": "^1.4.0",
     "node-fetch": "^3.3.2",
     "node-fs": "^0.1.7"
+  },
+  "name": "krtc-monitoring",
+  "version": "1.0.0",
+  "description": "A NodeJS-based project that monitors the metro system of KRTC.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:frontend": "vite",
+    "dev:electron": "cross-env NODE_ENV=development electron .",
+    "start": "concurrently \"npm run dev:frontend\" \"wait-on http://localhost:5173 && npm run dev:electron\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Herrrrr98/KRTC-Monitoring.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Herrrrr98/KRTC-Monitoring/issues"
+  },
+  "homepage": "https://github.com/Herrrrr98/KRTC-Monitoring#readme",
+  "devDependencies": {
+    "electron": "^42.1.0"
   }
 }

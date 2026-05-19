@@ -1,46 +1,44 @@
-const color = require('colors');
-const fs = require('fs');
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-const curnt_time = require('./function_curnt_time');
-const basic_data = require('./basic_data');
-const DataAnalytics = require('./DataAnalytics');
-const config = require('./config.json');
+const { app, BrowserWindow } = require('electron')
+const path = require('path')
 
-async function app(){
-    var start_app = true;
-    var keep_alive = true;
-    if(config.whether_restore_when_starting){ 
-        try{
-            fs.rmSync(`${config.src_Folder}`, {recursive: true});
-            fs.mkdirSync(`${config.src_Folder}`);
-            console.log(`${config.src_Folder}`.bgBlue + " is restored.  Please Wait for Starting".green);
-            await sleep(config.timeouts.restore_when_starting);
-    }catch(e){
-        console.log("Found Errors when Restoring".bgRed + `\n${e}`.red);
-        start_app = false;
-    }};
-    while(start_app){
-        try{    
-            fs.readdirSync(`${config.src_Folder}/${curnt_time(true)}`);
-        }catch(e){
-            console.warn(e);
-            try {
-                fs.mkdirSync(`${config.src_Folder}/${curnt_time(true)}`);
-                console.log("ERROR has been solved:".bgGreen);
-                console.log(`${config.src_Folder}/${curnt_time(true)}`.bgBlue + " is Created.  Please Wait for Starting".green);
-                keep_alive = true;
-                await sleep(config.timeouts.restore_when_starting);
-            }catch(err){
-                console.log("Found Errors when Creating New Folder".bgRed + `\n${err}`.red);
-                start_app = false;
-                keep_alive = false;
-        }};
-        //--------------------------------------------------------
-        while(keep_alive){
-        console.log('\x1B[2J\x1B[3J\x1B[H\x1Bc');
-        keep_alive = await basic_data();
-        if(keep_alive) await sleep(config.timeouts.main_app);
-        }
+// 區分生產環境與Dev環境
+const isDev = !app.isPackaged;
+
+function createWindow () {
+  const win = new BrowserWindow({
+    width: 1200,
+    height: 800,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+      nodeIntegration: false
     }
-};
-app().catch(console.error);
+  });
+
+  if (isDev) {
+    // 開發環境:讀取 Vite 的 localhost
+    win.loadURL('http://localhost:5173');
+  } else {
+    // 生產環境:讀取 build 出來的 dist/index.html
+    win.loadFile(path.join(__dirname, 'dist', 'index.html'));
+  }
+}
+
+// 掛載
+app.whenReady().then(() => {
+    createWindow();
+    // 給macOS用的...
+    app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
+  })
+})
+
+// 關閉, 給windows/linux用的 macOS好像不用
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
