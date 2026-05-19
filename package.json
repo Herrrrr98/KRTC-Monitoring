@@ -1,18 +1,51 @@
 {
-  "dependencies": {
-    "colors": "^1.4.0",
-    "node-fetch": "^3.3.2",
-    "node-fs": "^0.1.7"
-  },
   "name": "krtc-monitoring",
   "version": "1.0.0",
   "description": "A NodeJS-based project that monitors the metro system of KRTC.",
   "main": "main.js",
+  "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev:frontend": "vite",
     "dev:electron": "cross-env NODE_ENV=development electron .",
-    "start": "concurrently \"npm run dev:frontend\" \"wait-on http://localhost:5173 && npm run dev:electron\""
+    "start": "concurrently \"npm run dev:frontend\" \"wait-on http://localhost:5173 && npm run dev:electron\"",
+    "build:react": "vite build",
+    "pack": "electron-builder --dir",
+    "dist": "npm run build:react && electron-builder"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "node-fetch": "^3.3.2",
+    "node-fs": "^0.1.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.0",
+    "concurrently": "^8.2.0",
+    "cross-env": "^7.0.3",
+    "electron": "^42.1.0",
+    "electron-builder": "^24.13.0",
+    "vite": "^5.0.0",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.herrrrr98.krtc-monitoring",
+    "productName": "KRTC-Monitoring",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "backend/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    }
   },
   "repository": {
     "type": "git",
@@ -21,12 +54,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Herrrrr98/KRTC-Monitoring/issues"
   },
-  "homepage": "https://github.com/Herrrrr98/KRTC-Monitoring#readme",
-  "devDependencies": {
-    "electron": "^42.1.0"
-  }
+  "homepage": "https://github.com/Herrrrr98/KRTC-Monitoring#readme"
 }
