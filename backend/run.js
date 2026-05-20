@@ -4,7 +4,7 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const curnt_time = require('./function_curnt_time');
 const basic_data = require('./basic_data');
 const DataAnalytics = require('./DataAnalytics');
-const config = require('./config.json');
+const config = require('../config.json');
 
 async function app(){
     var start_app = true;

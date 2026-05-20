@@ -5,6 +5,7 @@ import MainView from './views/MainView'
 
 // 路由操作部分
 // 可以用link指令來切換
+// <Link to="/">首頁</Link>
 //
 // 切換方式
 // import { useNavigate } from 'react-router-dom';
@@ -17,13 +18,6 @@ import MainView from './views/MainView'
 export default function App() {
   return (
     <BrowserRouter>
-      <nav>
-        <Link to="/">首頁</Link> | 
-        <Link to="/about">關於我們</Link>
-      </nav>
-
-      <hr />
-
       <Routes>
         <Route path="/" element={<MainView />} />
         {/* <Route path="/example" element={<ExampleView />} /> */}
