@@ -1,6 +1,6 @@
 const fs = require('fs');
 const curnt_time = require('./function_curnt_time');
-const config = require('./config.json');
+const config = require('../config.json');
 const TrainClass = require('./KRTC-TrData.json');
 
 function timeToMin(timearr){

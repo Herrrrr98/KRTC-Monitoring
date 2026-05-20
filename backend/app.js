@@ -2,9 +2,9 @@ const color = require('colors');
 const fs = require('fs');
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const curnt_time = require('./function_curnt_time');
-const main = require('./main');
+const main = require('./run');
 const DataAnalytics = require('./DataAnalytics');
-const config = require('./config.json');
+const config = require('../config.json');
 
 async function app(){
     var start_app = true;

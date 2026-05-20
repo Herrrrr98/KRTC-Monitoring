@@ -20,7 +20,7 @@ async function app(){
         start_app = false;
     }};
     while(start_app){
-        try{    
+        try{
             fs.readdirSync(`${config.src_Folder}/${curnt_time(true)}`);
         }catch(e){
             console.warn(e);

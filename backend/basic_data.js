@@ -1,4 +1,4 @@
-const config = require('./config.json');
+const config = require('../config.json');
 const fs = require('fs');
 const color = require('colors');
 const curnt_time = require('./function_curnt_time');

@@ -1,7 +1,14 @@
-const { defineConfig } = require('vite')
-const react = require('@vitejs/react-plugin')
+const { defineConfig } = require('vite');
+const react = require('@vitejs/plugin-react');
 
 module.exports = defineConfig({
   plugins: [react()],
-  base: './', 
-})
+  base: './',
+  server: {
+    port: 5173,
+    strictPort: true,
+  },
+  build: {
+    outDir: 'dist',
+  }
+});
