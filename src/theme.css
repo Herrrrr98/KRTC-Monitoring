@@ -2,8 +2,22 @@
   --bg-body: #151517;
   --bg-panel: #1f1f1f;
   --bg-startBox: #2c2c2e;
+  --bg-trainLiveBox: #171717;
+  --bg-btn: #2c2c2e;
   --text-main: #ffffff;
   --text-meta: #e0e0e0;
-  --border-color: #1b1b1c;
+  --text-red: #ff4d5e;
+  --text-orange: #ffa012;
+  --border-color: #303030;
+  --scrollbar-thumb: #333537;
 }
 
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb); border-radius: 3px;
+}
