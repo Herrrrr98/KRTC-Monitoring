@@ -36,6 +36,7 @@ export default function MainView() {
             </div>
           </div>
         </div>
+        <div className={styles.rightNavBox}></div>
       </div>
     </>
   )
