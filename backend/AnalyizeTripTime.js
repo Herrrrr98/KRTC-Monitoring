@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const curnt_time = require('./function_curnt_time');
 const config = require('../config.json');
 const TrainClass = require('./KRTC-TrData.json');
@@ -8,17 +9,17 @@ function timeToMin(timearr){
 };
 
 async function AnalyizeTripTIme() {
+    const abs_src_folder = path.resolve(__dirname, config.src_Folder);
     try{
-        
         var triptime_results = [];
-        var folders = fs.readdirSync(config.src_Folder, { withFileTypes: true }).filter(counts => counts.isDirectory());
+        var folders = fs.readdirSync(abs_src_folder, { withFileTypes: true }).filter(counts => counts.isDirectory());
         for(let repeat = 0; repeat < folders.length; repeat++){
-            var folderPath = config.src_Folder + '/' + folders[repeat].name;
+            var folderPath = path.join(abs_src_folder, folders[repeat].name);
             var files = fs.readdirSync(folderPath);
             var filescount = files.length;
             for(let inner_repeat = 0; inner_repeat < filescount; inner_repeat++){
                 var fileName = files[inner_repeat];
-                var file = fs.readFileSync(folderPath + '/'+ fileName, 'utf-8');
+                var file = fs.readFileSync(path.join(folderPath, fileName), 'utf-8');
                 var contents = file.split("+");
                 contents.splice(0,1); //(contents[0] is empty, causing train&time would lose a data.)
                 var train = [], time = [];
