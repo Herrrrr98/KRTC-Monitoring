@@ -5,38 +5,59 @@ import styles from './app.module.css'
 
 export default function MainView() {
   const navigate = useNavigate();
+ 
+  useEffect(() => {
+    const unsubscribe = window.api.onKrtcUpdate((report) => {
+        console.log("get ketc info", report);
+    });
+
+    return () => {
+        unsubscribe();
+    };
+  }, []);
 
   const [trainData, setTrainData] = useState([
-    { no: "26", station: "O13" },
-    { no: "39", station: "R7" },
-    { no: "42", station: "R18" },
-    { no: "40", station: "R22R21" },
-    { no: "07", station: "O12" },
-    { no: "36", station: "O2" },
-    { no: "31", station: "R3" },
-    { no: "15", station: "O8O9" },
-    { no: "34", station: "O6" },
-    { no: "03", station: "R9" },
-    { no: "29", station: "R11" },
-    { no: "10", station: "R24" },
-    { no: "14", station: "R6" },
-    { no: "04", station: "R4" },
-    { no: "16", station: "OT1" },
-    { no: "12", station: "R18R17" },
-    { no: "27", station: "R15" },
-    { no: "38", station: "R14R13" },
-    { no: "32", station: "R22R22A" },
-    { no: "19", station: "O1" },
-    { no: "33", station: "RK1R24" }
+    { TrainID: '08', Line: 'R', WhereItWas: 'R8' },
+    { TrainID: '26', Line: 'R', WhereItWas: 'R5' },
+    { TrainID: '25', Line: 'O', WhereItWas: 'O6' },
+    { TrainID: '27', Line: 'R', WhereItWas: 'R14' },
+    { TrainID: '39', Line: 'R', WhereItWas: 'R4' },
+    { TrainID: '42', Line: 'R', WhereItWas: 'R17' },
+    { TrainID: '22', Line: 'R', WhereItWas: 'R24' },
+    { TrainID: '13', Line: 'R', WhereItWas: 'R8' },
+    { TrainID: '07', Line: 'O', WhereItWas: 'OT1' },
+    { TrainID: '40', Line: 'R', WhereItWas: 'R19R20' },
+    { TrainID: '41', Line: 'R', WhereItWas: 'R3R4' },
+    { TrainID: '01', Line: 'R', WhereItWas: 'R12' },
+    { TrainID: '37', Line: 'O', WhereItWas: 'O13' },
+    { TrainID: '28', Line: 'R', WhereItWas: 'R16' },
+    { TrainID: '35', Line: 'R', WhereItWas: 'R22A' },
+    { TrainID: '19', Line: 'O', WhereItWas: 'O1O2' },
+    { TrainID: '24', Line: 'O', WhereItWas: 'O4' },
+    { TrainID: '10', Line: 'R', WhereItWas: 'R23' },
+    { TrainID: '32', Line: 'R', WhereItWas: 'R15' },
+    { TrainID: '03', Line: 'R', WhereItWas: 'R20' },
+    { TrainID: '09', Line: 'R', WhereItWas: 'R24RK1' },
+    { TrainID: '02', Line: 'R', WhereItWas: 'R6' },
+    { TrainID: '16', Line: 'O', WhereItWas: 'O11' },
+    { TrainID: '06', Line: 'R', WhereItWas: 'R11' },
+    { TrainID: '34', Line: 'O', WhereItWas: 'O9O8' },
+    { TrainID: '14', Line: 'R', WhereItWas: 'R21' }
   ]);
+
+  const sortedTrainData = [...trainData].sort((a, b) => {
+    if (a.Line === b.Line) return a.TrainID.localeCompare(b.TrainID); 
+    return a.Line === 'R' ? -1 : 1;
+  });
+
 
 
   const lastRefreshTime = "20:46";
   const refreshRate = "30";
   const totalRequest = 1;
-  const trainsTotal = 21;
   const trainsInRed = 14;
   const trainsInOrange = 7;
+  const trainsTotal = trainsInRed + trainsInOrange;
 
   return (
     <>
@@ -65,14 +86,14 @@ export default function MainView() {
           </div>
           <div className={styles.trainLiveBox}>
             <div className={styles.liveboxContainer}>
-              {trainData.map((train, index) => {
-                const isOrange = train.station.startsWith('O');
+              {sortedTrainData.map((train, index) => {
+                const isOrange = train.Line === 'O';
                 const colorClass = isOrange ? styles.textOrange : styles.textRed;
                 return (
-                  <div className={styles.liveCard} key={train.no || index}>
-                    <div className={styles.cardTrainNo}>Train No. {train.no}</div>
+                  <div className={styles.liveCard} key={train.TrainID || index}>
+                    <div className={styles.cardTrainNo}>Train No. {train.TrainID}</div>
                     <div className={`${styles.cardStation} ${colorClass}`}>
-                      {train.station}
+                      {train.WhereItWas}
                     </div>
                   </div>
                 );
