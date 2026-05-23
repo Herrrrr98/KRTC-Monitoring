@@ -1,11 +1,12 @@
-const color = require('colors');
 const fs = require('fs');
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const curnt_time = require('./function_curnt_time');
-const basic_data = require('./basic_data');
-const DataAnalytics = require('./DataAnalytics');
+const getdata = require('./getdata');
+const AnalyizeTripTIme = require('./AnalyizeTripTime');
 const config = require('../config.json');
 
+
+var reqcount = 0;
 async function app(){
     var start_app = true;
     var keep_alive = true;
@@ -38,7 +39,26 @@ async function app(){
         //--------------------------------------------------------
         while(keep_alive){
         console.log('\x1B[2J\x1B[3J\x1B[H\x1Bc');
-        keep_alive = await basic_data();
+        var d = await getdata(reqcount);
+        reqcount = d.data.req_count;
+        if(!d.alive){
+            keep_alive = false;
+            break;
+        };
+        var Data_Analyized = await AnalyizeTripTIme();
+        if(!Data_Analyized.alive){
+            keep_alive = false;
+            break;
+        };
+        console.log(
+            `Testing:\n`+
+            `Rnum: ${d.data.R}\n`+
+            `Onum: ${d.data.O}\n`+
+            `Reqcount: ${d.data.req_count}\n`+
+            `Analyized Data:\n`+
+            (reqcount%4==0? Data_Analyized.data : "Resting")
+        );
+        console.log(d.data.Trains);
         if(keep_alive) await sleep(config.timeouts.main_app);
         }
     }
