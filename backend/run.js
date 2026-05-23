@@ -40,15 +40,16 @@ async function app(){
         while(keep_alive){
         console.log('\x1B[2J\x1B[3J\x1B[H\x1Bc');
         var d = await getdata(reqcount);
-        reqcount = d.data.req_count;
-        if(!d.alive){
+        if(d.alive){
+            reqcount = d.data.req_count;
+        }else{
             keep_alive = false;
-            break;
+            continue;
         };
         var Data_Analyized = await AnalyizeTripTIme();
         if(!Data_Analyized.alive){
             keep_alive = false;
-            break;
+            continue;
         };
         console.log(
             `Testing:\n`+
