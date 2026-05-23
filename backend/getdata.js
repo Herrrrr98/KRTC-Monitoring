@@ -16,13 +16,12 @@ async function getdata(reqcount){
             const data = await response.json();
             reqcount++;
             var Rnum = 0, Onum = 0, trains = [];
-            for(let a = 0; a < data.d.Result.length ; a++){
+            for(let a = 0; a < data.d.Result.length; a++){
                 trains.push({
-                    "TrainID": data.d.Result[a].TrainID,
+                    "TrainID": String(data.d.Result[a].TrainID).padStart(2,"0"),
                     "Line": data.d.Result[a].LineNo,
                     "WhereItWas": data.d.Result[a].Station
                 });
-                if(Number(trains[a].TrainID)<10) trains[a] = "0" + String(trains[a]);
                 String(data.d.Result[a].LineNo) === "O" ? Onum++ : Rnum++;
                 fs.appendFileSync(`${config.src_Folder}/${curnt_time(true)}/id_${trains[a].TrainID}.txt`, `+ ${curnt_time()} | ${trains[a].WhereItWas} \n`);
             };
