@@ -1,11 +1,12 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
+const { load_commands } = require('./commands');
 
 // 區分生產環境與Dev環境
 const isDev = !app.isPackaged;
 
 function createWindow () {
-  const win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
     minWidth: 600,
@@ -13,22 +14,24 @@ function createWindow () {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
-      nodeIntegration: false
+      nodeIntegration: false,
+      devTools: true
     }
   });
 
   if (isDev) {
     // 開發環境:讀取 Vite 的 localhost
-    win.loadURL('http://localhost:5173');
+    mainWindow.loadURL('http://localhost:5173');
   } else {
     // 生產環境:讀取 build 出來的 dist/index.html
-    win.loadFile(path.join(__dirname, '../dist', 'index.html'));
+    mainWindow.loadFile(path.join(__dirname, '../dist', 'index.html'));
   }
 }
 
 // 掛載
 app.whenReady().then(() => {
     createWindow();
+    load_commands(mainWindow);
 })
 
 // 給macOS用的...
