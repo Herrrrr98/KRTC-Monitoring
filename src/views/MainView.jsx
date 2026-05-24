@@ -69,11 +69,11 @@ export default function MainView() {
               </div>
               <div className={`${styles.statBox} ${styles.red}`}>
                 <div className={styles.statLabel}>Red Line (WorkLoad)</div>
-                <div className={styles.statVal}>{trainsInRed}/28 ({(trainsInRed / 28) * 100}%)</div>
+                <div className={styles.statVal}>{trainsInRed}/28 ({((trainsInRed / 28) * 100).toFixed(1)}%)</div>
               </div>
               <div className={`${styles.statBox} ${styles.orange}`}>
                 <div className={styles.statLabel}>Orange Line (WorkLoad)</div>
-                <div className={styles.statVal}>{trainsInOrange}/14 ({(trainsInOrange / 14) * 100}%)</div>
+                <div className={styles.statVal}>{trainsInOrange}/14 ({((trainsInOrange / 14) * 100).toFixed(1)}%)</div>
               </div>
             </div>
           </div>
