@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from './LeftContainer.module.css';
 import '../theme.css';
 import { HeaderDashboard } from './HeaderDashBoard';
+import { TrainLiveBox } from './TrainLiveBox';
 
 export function LeftContainer() {
   const [trainData, setTrainData] = useState([]);
@@ -59,22 +60,7 @@ export function LeftContainer() {
         trainsInRed={trainsInRed}
         trainsInOrange={trainsInOrange}
       />
-      <div className={styles.trainLiveBox}>
-        <div className={styles.liveboxContainer}>
-          {sortedTrainData.map((train, index) => {
-            const isOrange = train.Line === 'O';
-            const colorClass = isOrange ? styles.textOrange : styles.textRed;
-            return (
-              <div className={styles.liveCard} key={train.TrainID || index}>
-                <div className={styles.cardTrainNo}>Train No. {train.TrainID}</div>
-                <div className={`${styles.cardStation} ${colorClass}`}>
-                  {train.WhereItWas}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <TrainLiveBox trainData={sortedTrainData} />
     </div>
   )
 }
