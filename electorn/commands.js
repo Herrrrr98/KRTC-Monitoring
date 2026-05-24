@@ -1,6 +1,8 @@
 const { ipcMain } = require('electron');
 const app = require('../backend/run');
 
+let cachedReport = null;
+
 function load_commands(mainWindow) {
     
     let isMonitoringStarted = false;
@@ -14,12 +16,17 @@ function load_commands(mainWindow) {
         for await (const report of data_stream) {
             if (mainWindow && !mainWindow.isDestroyed()) {
                 const safeReport = JSON.parse(JSON.stringify(report));
+                cachedReport = safeReport;
                 mainWindow.webContents.send('send-krtc-update', safeReport);
                 console.log("send-krtc-update success");
             } else {
                 console.log("No Windows...");
             }
         }
+    });
+
+    ipcMain.handle('get-latest-krtc-data', async () => {
+        return cachedReport;
     });
 
 }

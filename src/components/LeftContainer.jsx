@@ -14,19 +14,32 @@ export function LeftContainer() {
     oNum: 0
   });
 
+  const updateUiState = (report) => {
+    if (report && Array.isArray(report.trains)) {
+      setTrainData(report.trains);
+      setApiMeta({
+        lest_refresh: report.lest_refresh || "00:00",
+        refresh_rate: report.refresh_rate || 30000,
+        reqcount: report.reqcount || 0,
+        rNum: report.rNum || 0,
+        oNum: report.oNum || 0
+      });
+    }
+  };
+
   useEffect(() => {
+    if (window.api && typeof window.api.getLatestData === 'function') {
+      window.api.getLatestData().then((cachedReport) => {
+        if (cachedReport) {
+          console.log("成功從後端快取恢復資料", cachedReport);
+          updateUiState(cachedReport);
+        }
+      });
+    }
+
     const unsubscribe = window.api.onKrtcUpdate((report) => {
-      console.log("get krtc info", report);
-      if (report && Array.isArray(report.trains)) {
-        setTrainData(report.trains);
-        setApiMeta({
-          lest_refresh: report.lest_refresh || "00:00",
-          refresh_rate: report.refresh_rate || 30000,
-          reqcount: report.reqcount || 0,
-          rNum: report.rNum || 0,
-          oNum: report.oNum || 0
-        });
-      }
+      console.log("get krtc info from stream", report);
+      updateUiState(report);
     });
 
     if (window.api && typeof window.api.startMonitor === 'function') {

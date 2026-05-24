@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 // 把 ./views 中的東西import過來
 // import { ExampleView } from './views/ExampleView '
 import MainView from './views/MainView'
+import PageView from './views/PageView'
 
 // 路由操作部分
 // 可以用link指令來切換
@@ -21,6 +22,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<MainView />} />
         {/* <Route path="/example" element={<ExampleView />} /> */}
+        <Route path='/page' element={<PageView />} />
         <Route path="*" element={<h1>404 Not Found...</h1>} />
       </Routes>
     </BrowserRouter>

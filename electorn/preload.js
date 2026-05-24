@@ -9,5 +9,6 @@ contextBridge.exposeInMainWorld('api', {
   	},
 	startMonitor: () => {
 		ipcRenderer.send('ready-to-monitor');
-	}
+	},
+	getLatestData: () => ipcRenderer.invoke('get-latest-krtc-data')
 });
