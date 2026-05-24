@@ -5,16 +5,6 @@ import styles from './app.module.css'
 
 export default function MainView() {
   const navigate = useNavigate();
- 
-  useEffect(() => {
-    const unsubscribe = window.api.onKrtcUpdate((report) => {
-        console.log("get ketc info", report);
-    });
-
-    return () => {
-        unsubscribe();
-    };
-  }, []);
 
   const [trainData, setTrainData] = useState([
     { TrainID: '08', Line: 'R', WhereItWas: 'R8' },
@@ -45,18 +35,46 @@ export default function MainView() {
     { TrainID: '14', Line: 'R', WhereItWas: 'R21' }
   ]);
 
+  const [apiMeta, setApiMeta] = useState({
+    lest_refresh: "20:46",
+    refresh_rate: 30000,
+    reqcount: 1,
+    rNum: 14,
+    oNum: 7
+  });
+
+  useEffect(() => {
+    const unsubscribe = window.api.onKrtcUpdate((report) => {
+      console.log("get ketc info", report);
+      
+      if (report && Array.isArray(report.trains)) {
+        setTrainData(report.trains);
+        
+        setApiMeta({
+          lest_refresh: report.lest_refresh || "00:00",
+          refresh_rate: report.refresh_rate || 30000,
+          reqcount: report.reqcount || 0,
+          rNum: report.rNum || 0,
+          oNum: report.oNum || 0
+        });
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   const sortedTrainData = [...trainData].sort((a, b) => {
     if (a.Line === b.Line) return a.TrainID.localeCompare(b.TrainID); 
     return a.Line === 'R' ? -1 : 1;
   });
 
-
-
-  const lastRefreshTime = "20:46";
-  const refreshRate = "30";
-  const totalRequest = 1;
-  const trainsInRed = 14;
-  const trainsInOrange = 7;
+  const lastRefreshTime = apiMeta.lest_refresh;
+  const refreshRate = String(apiMeta.refresh_rate / 1000);
+  const totalRequest = apiMeta.reqcount;
+  const trainsInRed = apiMeta.rNum;
+  const trainsInOrange = apiMeta.oNum;
   const trainsTotal = trainsInRed + trainsInOrange;
 
   return (
