@@ -63,51 +63,6 @@
   font-weight: bold;
 }
 
-.rightNavBox {
-  width: 260px;
-  background-color: var(--bg-panel);
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow-y: auto;
-}
-
-.navTPBtn {
-  background-color: var(--bg-btn);
-  border: 2px solid var(--border-btn);
-  border: 2px solid transparent;
-  border-radius: 6px;
-  color: var(--text-meta);
-  padding: 14px 15px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  text-align: left;
-  display: block;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-height: 40px;
-}
-
-.navTPBtn:hover {
-  filter: brightness(1.15);
-  background-color: #2a3141;
-  color: #4f67ad !important;
-  border: 2px solid #4f67ad;
-  box-shadow: 0 5px 5px rgba(115, 157, 247, 0.1);
-}
-
-.navTPBtn:active {
-  transform: scale(0.95);
-}
-
-
 .trainLiveBox {
   flex: 1;
   background-color: var(--bg-trainLiveBox);

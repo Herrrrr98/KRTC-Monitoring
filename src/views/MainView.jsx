@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../theme.css';
 import styles from './app.module.css'
+import { RightContainer } from '../components/RightContainer';
 
 export default function MainView() {
-  const navigate = useNavigate();
-
   const [trainData, setTrainData] = useState([]);
 
   const [apiMeta, setApiMeta] = useState({
@@ -94,11 +93,7 @@ export default function MainView() {
             </div>
           </div>
         </div>
-        <div className={styles.rightNavBox}>
-          <button className={styles.navTPBtn} onClick={() => navigate('/path')}>頁面名稱...</button>
-          <button className={styles.navTPBtn} onClick={() => navigate('/path')}>頁面名稱...</button>
-          <button className={styles.navTPBtn} onClick={() => navigate('/path')}>頁面名稱...</button>
-        </div>
+        <RightContainer></RightContainer>
       </div>
     </>
   )
