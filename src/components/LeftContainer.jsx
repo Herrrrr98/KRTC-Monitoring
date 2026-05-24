@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import styles from './leftContainer.module.css';
+import styles from './LeftContainer.module.css';
 import '../theme.css';
+import { HeaderDashboard } from './HeaderDashBoard';
 
 export function LeftContainer() {
   const [trainData, setTrainData] = useState([]);
@@ -50,27 +51,14 @@ export function LeftContainer() {
 
   return (
     <div className={styles.leftContainer}>
-      <div className={styles.headerDashboard}>
-        <div className={styles.metaRow}>
-            <span>last refresh: {lastRefreshTime}</span>
-            <span>refresh rate: {refreshRate} sec</span>
-            <span>total request: {totalRequest}</span>
-        </div>
-        <div className={styles.statsGrid}>
-          <div className={`${styles.statBox} ${styles.green}`}>
-            <div className={styles.statLabel}>Trains Online</div>
-            <div className={styles.statVal}>{trainsTotal} in total</div>
-          </div>
-          <div className={`${styles.statBox} ${styles.red}`}>
-            <div className={styles.statLabel}>Red Line (WorkLoad)</div>
-            <div className={styles.statVal}>{trainsInRed}/28 ({((trainsInRed / 28) * 100).toFixed(1)}%)</div>
-          </div>
-          <div className={`${styles.statBox} ${styles.orange}`}>
-            <div className={styles.statLabel}>Orange Line (WorkLoad)</div>
-            <div className={styles.statVal}>{trainsInOrange}/14 ({((trainsInOrange / 14) * 100).toFixed(1)}%)</div>
-          </div>
-        </div>
-      </div>
+      <HeaderDashboard 
+        lastRefreshTime={lastRefreshTime}
+        refreshRate={refreshRate}
+        totalRequest={totalRequest}
+        trainsTotal={trainsTotal}
+        trainsInRed={trainsInRed}
+        trainsInOrange={trainsInOrange}
+      />
       <div className={styles.trainLiveBox}>
         <div className={styles.liveboxContainer}>
           {sortedTrainData.map((train, index) => {
