@@ -1,0 +1,101 @@
+.leftContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.headerDashboard {
+  background: var(--bg-panel);
+  padding: 15px;
+  border-radius: 8px 8px 0 0;
+  border: 2px solid var(--border-color);
+  border-bottom: none;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-meta);
+  margin-bottom: 12px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.statBox {
+  background: var(--bg-startBox);
+  padding: 10px;
+  border-radius: 6px;
+  border-left: 4px solid #4a5568;
+  border-top: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.statBox.red { border-left-color: #e3001b; }
+.statBox.orange { border-left-color: #fca311; }
+.statBox.green { border-left-color: #00843d; }
+
+.statLabel {
+  font-size: 11px;
+  color: var(--text-meta);
+  margin-bottom: 2px;
+}
+.statVal {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.trainLiveBox {
+  flex: 1;
+  background-color: var(--bg-trainLiveBox);
+  border: 2px solid var(--border-color);
+  border-radius: 0 0 8px 8px;
+  padding: 15px;
+  margin-bottom: 30px;
+  overflow-y: auto;
+}
+
+.liveboxContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.liveCard {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.cardTrainNo {
+  font-size: 11px;
+  color: var(--text-meta);
+  font-weight: bold;
+}
+
+.cardStation {
+  font-size: 18px;
+  font-weight: 900;
+  text-align: right;
+  align-self: flex-end;
+}
+
+.textRed {
+  color: var(--text-red);
+}
+
+.textOrange {
+  color: var(--text-orange);
+}

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../theme.css';
 import styles from './app.module.css'
 import { RightContainer } from '../components/RightContainer';
+import { LeftContainer } from '../components/LeftContainer';
 
 export default function MainView() {
   const [trainData, setTrainData] = useState([]);
@@ -52,49 +53,9 @@ export default function MainView() {
   const trainsTotal = trainsInRed + trainsInOrange;
 
   return (
-    <>
-      <div className={styles.body}>
-        <div className={styles.leftContainer}>
-          <div className={styles.headerDashboard}>
-            <div className={styles.metaRow}>
-                <span>last refresh: {lastRefreshTime}</span>
-                <span>refresh rate: {refreshRate} sec</span>
-                <span>total request: {totalRequest}</span>
-            </div>
-            <div className={styles.statsGrid}>
-              <div className={`${styles.statBox} ${styles.green}`}>
-                <div className={styles.statLabel}>Trains Online</div>
-                <div className={styles.statVal}>{trainsTotal} in total</div>
-              </div>
-              <div className={`${styles.statBox} ${styles.red}`}>
-                <div className={styles.statLabel}>Red Line (WorkLoad)</div>
-                <div className={styles.statVal}>{trainsInRed}/28 ({((trainsInRed / 28) * 100).toFixed(1)}%)</div>
-              </div>
-              <div className={`${styles.statBox} ${styles.orange}`}>
-                <div className={styles.statLabel}>Orange Line (WorkLoad)</div>
-                <div className={styles.statVal}>{trainsInOrange}/14 ({((trainsInOrange / 14) * 100).toFixed(1)}%)</div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.trainLiveBox}>
-            <div className={styles.liveboxContainer}>
-              {sortedTrainData.map((train, index) => {
-                const isOrange = train.Line === 'O';
-                const colorClass = isOrange ? styles.textOrange : styles.textRed;
-                return (
-                  <div className={styles.liveCard} key={train.TrainID || index}>
-                    <div className={styles.cardTrainNo}>Train No. {train.TrainID}</div>
-                    <div className={`${styles.cardStation} ${colorClass}`}>
-                      {train.WhereItWas}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-        <RightContainer></RightContainer>
-      </div>
-    </>
+    <div className={styles.body}>
+      <LeftContainer />
+      <RightContainer />
+    </div>
   )
 }
