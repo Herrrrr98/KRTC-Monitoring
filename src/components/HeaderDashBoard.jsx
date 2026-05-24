@@ -1,5 +1,6 @@
 import styles from './HeaderDashboard.module.css';
 import '../theme.css';
+import { StatBox } from './StatBox'; 
 
 export function HeaderDashboard({
   lastRefreshTime, refreshRate, totalRequest, 
@@ -13,18 +14,15 @@ export function HeaderDashboard({
           <span>total request: {totalRequest}</span>
       </div>
       <div className={styles.statsGrid}>
-        <div className={`${styles.statBox} ${styles.green}`}>
-          <div className={styles.statLabel}>Trains Online</div>
-          <div className={styles.statVal}>{trainsTotal} in total</div>
-        </div>
-        <div className={`${styles.statBox} ${styles.red}`}>
-          <div className={styles.statLabel}>Red Line (WorkLoad)</div>
-          <div className={styles.statVal}>{trainsInRed}/28 ({((trainsInRed / 28) * 100).toFixed(1)}%)</div>
-        </div>
-        <div className={`${styles.statBox} ${styles.orange}`}>
-          <div className={styles.statLabel}>Orange Line (WorkLoad)</div>
-          <div className={styles.statVal}>{trainsInOrange}/14 ({((trainsInOrange / 14) * 100).toFixed(1)}%)</div>
-        </div>
+        <StatBox label="Trains Online" value={`${trainsTotal} in total`} type="green" />
+        <StatBox label="Red Line (WorkLoad)" 
+          value={`${trainsInRed}/28 (${((trainsInRed / 28) * 100).toFixed(1)}%)`} 
+          type="red" 
+        />
+        <StatBox label="Orange Line (WorkLoad)" 
+          value={`${trainsInOrange}/14 (${((trainsInOrange / 14) * 100).toFixed(1)}%)`} 
+          type="orange" 
+        />
       </div>
     </div>
   )
