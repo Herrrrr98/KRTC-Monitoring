@@ -6,50 +6,21 @@ import styles from './app.module.css'
 export default function MainView() {
   const navigate = useNavigate();
 
-  const [trainData, setTrainData] = useState([
-    { TrainID: '08', Line: 'R', WhereItWas: 'R8' },
-    { TrainID: '26', Line: 'R', WhereItWas: 'R5' },
-    { TrainID: '25', Line: 'O', WhereItWas: 'O6' },
-    { TrainID: '27', Line: 'R', WhereItWas: 'R14' },
-    { TrainID: '39', Line: 'R', WhereItWas: 'R4' },
-    { TrainID: '42', Line: 'R', WhereItWas: 'R17' },
-    { TrainID: '22', Line: 'R', WhereItWas: 'R24' },
-    { TrainID: '13', Line: 'R', WhereItWas: 'R8' },
-    { TrainID: '07', Line: 'O', WhereItWas: 'OT1' },
-    { TrainID: '40', Line: 'R', WhereItWas: 'R19R20' },
-    { TrainID: '41', Line: 'R', WhereItWas: 'R3R4' },
-    { TrainID: '01', Line: 'R', WhereItWas: 'R12' },
-    { TrainID: '37', Line: 'O', WhereItWas: 'O13' },
-    { TrainID: '28', Line: 'R', WhereItWas: 'R16' },
-    { TrainID: '35', Line: 'R', WhereItWas: 'R22A' },
-    { TrainID: '19', Line: 'O', WhereItWas: 'O1O2' },
-    { TrainID: '24', Line: 'O', WhereItWas: 'O4' },
-    { TrainID: '10', Line: 'R', WhereItWas: 'R23' },
-    { TrainID: '32', Line: 'R', WhereItWas: 'R15' },
-    { TrainID: '03', Line: 'R', WhereItWas: 'R20' },
-    { TrainID: '09', Line: 'R', WhereItWas: 'R24RK1' },
-    { TrainID: '02', Line: 'R', WhereItWas: 'R6' },
-    { TrainID: '16', Line: 'O', WhereItWas: 'O11' },
-    { TrainID: '06', Line: 'R', WhereItWas: 'R11' },
-    { TrainID: '34', Line: 'O', WhereItWas: 'O9O8' },
-    { TrainID: '14', Line: 'R', WhereItWas: 'R21' }
-  ]);
+  const [trainData, setTrainData] = useState([]);
 
   const [apiMeta, setApiMeta] = useState({
-    lest_refresh: "20:46",
+    lest_refresh: "00:00",
     refresh_rate: 30000,
-    reqcount: 1,
-    rNum: 14,
-    oNum: 7
+    reqcount: 0,
+    rNum: 0,
+    oNum: 0
   });
 
   useEffect(() => {
     const unsubscribe = window.api.onKrtcUpdate((report) => {
       console.log("get ketc info", report);
-      
       if (report && Array.isArray(report.trains)) {
         setTrainData(report.trains);
-        
         setApiMeta({
           lest_refresh: report.lest_refresh || "00:00",
           refresh_rate: report.refresh_rate || 30000,
@@ -59,6 +30,10 @@ export default function MainView() {
         });
       }
     });
+
+    if (window.api && typeof window.api.startMonitor === 'function') {
+      window.api.startMonitor();
+    }
 
     return () => {
       unsubscribe();

@@ -40,8 +40,16 @@ async function* app(){
                 keep_alive = false;
         }};
         //--------------------------------------------------------
+        var is_first_run = true;
+
         while(keep_alive){
             // console.log('\x1B[2J\x1B[3J\x1B[H\x1Bc');
+            if (!is_first_run) {
+                if(keep_alive) await sleep(config.timeouts.main_app);
+            } else {
+                is_first_run = false;
+            }
+
             var d = await getdata(reqcount);
             if(d.alive){
                 reqcount = d.data.req_count;
@@ -83,8 +91,6 @@ async function* app(){
                 lest_refresh: curnt_time(),
                 isResting: (reqcount % 4 !== 0)
             };
-
-            if(keep_alive) await sleep(config.timeouts.main_app);
         }
     }
 };

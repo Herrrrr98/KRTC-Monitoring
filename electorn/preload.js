@@ -6,5 +6,8 @@ contextBridge.exposeInMainWorld('api', {
     	const subscription = (event, data) => callback(data);
 		ipcRenderer.on('send-krtc-update', subscription);
 		return () => ipcRenderer.removeListener('send-krtc-update', subscription);
-  	}
+  	},
+	startMonitor: () => {
+		ipcRenderer.send('ready-to-monitor');
+	}
 });
