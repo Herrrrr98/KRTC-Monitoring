@@ -11,5 +11,5 @@ contextBridge.exposeInMainWorld('api', {
 		ipcRenderer.send('ready-to-monitor');
 	},
 	getLatestData: () => ipcRenderer.invoke('get-latest-krtc-data'),
-	getAnalyzedData: () => ipcRenderer.invoke('get-analyzed-data')
+	getAnalyzedData: (...args) => ipcRenderer.invoke('get-analyzed-data')
 });
