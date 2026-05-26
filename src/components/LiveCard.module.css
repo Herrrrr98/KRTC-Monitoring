@@ -1,0 +1,45 @@
+.liveCard {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 75px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.liveCard:hover {
+  filter: brightness(1.15);
+  background-color: #2a3141;
+  color: #4f67ad !important;
+  border: 2px solid #4f67ad;
+  box-shadow: 0 5px 5px rgba(115, 157, 247, 0.1);
+}
+
+.liveCard:active {
+  transform: scale(0.95);
+}
+
+.cardTrainNo {
+  font-size: 11px;
+  color: var(--text-meta);
+  font-weight: bold;
+}
+
+.cardStation {
+  font-size: 18px;
+  font-weight: 900;
+  text-align: right;
+  align-self: flex-end;
+}
+
+.textRed {
+  color: var(--text-red);
+}
+
+.textOrange {
+  color: var(--text-orange);
+}

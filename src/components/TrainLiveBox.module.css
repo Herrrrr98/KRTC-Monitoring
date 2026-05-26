@@ -13,36 +13,3 @@
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 10px;
 }
-
-.liveCard {
-  background: var(--bg-panel);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 50px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
-
-.cardTrainNo {
-  font-size: 11px;
-  color: var(--text-meta);
-  font-weight: bold;
-}
-
-.cardStation {
-  font-size: 18px;
-  font-weight: 900;
-  text-align: right;
-  align-self: flex-end;
-}
-
-.textRed {
-  color: var(--text-red);
-}
-
-.textOrange {
-  color: var(--text-orange);
-}
