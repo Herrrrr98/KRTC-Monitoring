@@ -16,7 +16,7 @@ async function* app(){
         try{
             fs.rmSync(base_path, {recursive: true});
             fs.mkdirSync(base_path);
-            console.log(base_path.bgBlue + " is restored.  Please Wait for Starting");
+            console.log(base_path + " is restored.  Please Wait for Starting");
             await sleep(config.timeouts.restore_when_starting);
     }catch(e){
         console.log(`Found Errors when Restoring \n${e}`);
