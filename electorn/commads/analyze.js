@@ -1,9 +1,9 @@
 const { ipcMain } = require('electron');
-const AnalyzeTripTimeSpecific = require('../../backend/AnalyizeTripTime(AnalyzeSpecificID)');
+const AnalyizeTripTime = require('../../backend/AnalyizeTripTime(AnalyzeSpecificID)');
 
 function load_analyze() {
-    ipcMain.handle('get-analyzed-data', async (event, data) => {
-        return AnalyzeTripTimeSpecific(data);
+    ipcMain.handle('get-analyzed-data', async (event, id) => {
+        return AnalyizeTripTime(id);
     });
 }
 

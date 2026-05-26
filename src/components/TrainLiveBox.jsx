@@ -7,7 +7,7 @@ export function TrainLiveBox({ trainData }) {
     <div className={styles.trainLiveBox}>
       <div className={styles.liveboxContainer}>
         {trainData.map((train, index) => {
-          return <LiveCard train={train} index={index} />;
+          return <LiveCard key={index} train={train} index={index} />;
         })}
       </div>
     </div>

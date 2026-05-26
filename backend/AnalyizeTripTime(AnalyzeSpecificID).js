@@ -8,7 +8,7 @@ function timeToMin(timearr){
     return Number(timearr.split(":")[0] * 60) + Number(timearr.split(":")[1]);
 };
 
-async function AnalyizeTripTIme(ID_Number) {
+async function AnalyizeTripTime(ID_Number) {
     const abs_src_folder = path.resolve(__dirname, config.src_Folder);
     try{
         var triptime_results = [];
@@ -115,5 +115,4 @@ async function AnalyizeTripTIme(ID_Number) {
         return {alive: false, data: null};
     }
 };
-console.log(AnalyizeTripTIme(40));
-module.exports = AnalyizeTripTIme;
+module.exports = AnalyizeTripTime;
