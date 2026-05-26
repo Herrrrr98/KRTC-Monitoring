@@ -13,7 +13,6 @@
     "dist": "npm run build:react && electron-builder"
   },
   "dependencies": {
-    "colors": "^1.4.0",
     "node-fetch": "^3.3.2",
     "node-fs": "^0.1.7",
     "react": "^18.2.0",
