@@ -16,26 +16,26 @@ async function* app(){
         try{
             fs.rmSync(base_path, {recursive: true});
             fs.mkdirSync(base_path);
-            console.log(base_path.bgBlue + " is restored.  Please Wait for Starting".green);
+            console.log(base_path.bgBlue + " is restored.  Please Wait for Starting");
             await sleep(config.timeouts.restore_when_starting);
     }catch(e){
-        console.log("Found Errors when Restoring".bgRed + `\n${e}`.red);
+        console.log(`Found Errors when Restoring \n${e}`);
         start_app = false;
     }};
     while(start_app){
         const dailyFolder = path.join(base_path, curnt_time(true));
         try{
-            fs.readdirSync(dailyFolder);
+            fs.readdirSync(dailyFolder, { recursive: true });
         }catch(e){
             console.warn(e);
             try {
                 fs.mkdirSync(dailyFolder);
-                console.log("ERROR has been solved:".bgGreen);
-                console.log(`${dailyFolder}`.bgBlue + " is Created.  Please Wait for Starting".green);
+                console.log("ERROR has been solved:");
+                console.log(`${dailyFolder} is Created. Please Wait for Starting`);
                 keep_alive = true;
                 await sleep(config.timeouts.restore_when_starting);
             }catch(err){
-                console.log("Found Errors when Creating New Folder".bgRed + `\n${err}`.red);
+                console.log(`Found Errors when Creating New Folder \n${err}`);
                 start_app = false;
                 keep_alive = false;
         }};
