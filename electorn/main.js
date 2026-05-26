@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
-const { load_commands } = require('./commands');
+const { load_train_data } = require('./commads/traindata');
+const { load_analyze } = require('./commads/analyze')
 
 // 區分生產環境與Dev環境
 const isDev = !app.isPackaged;
@@ -31,7 +32,8 @@ function createWindow () {
 // 掛載
 app.whenReady().then(() => {
     createWindow();
-    load_commands(mainWindow);
+    load_train_data(mainWindow);
+    load_analyze();
 })
 
 // 給macOS用的...

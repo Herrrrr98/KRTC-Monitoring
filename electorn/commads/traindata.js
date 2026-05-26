@@ -1,9 +1,9 @@
 const { ipcMain } = require('electron');
-const app = require('../backend/run');
+const app = require('../../backend/run');
 
 let cachedReport = null;
 
-function load_commands(mainWindow) {
+function load_train_data(mainWindow) {
     
     let isMonitoringStarted = false;
     ipcMain.on('ready-to-monitor', async () => {
@@ -31,4 +31,4 @@ function load_commands(mainWindow) {
 
 }
 
-module.exports = { load_commands };
+module.exports = { load_train_data };
