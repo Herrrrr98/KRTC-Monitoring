@@ -44,9 +44,9 @@
     { "id":42 , "Class": "1183/2183/1184"}
   ],
   "system":{
-    "S": { "forward": "d", "heading": "Siaogang"},
-    "G": { "forward": "u", "heading": "Gangshan"},
-    "H": { "forward": "d", "heading": "Hamasen"},
-    "D": { "forward": "u", "heading": "Daliao"}
+    "S": { "Line": "R", "forward": "d", "heading": "Siaogang"},
+    "G": { "Line": "R", "forward": "u", "heading": "Gangshan"},
+    "H": { "Line": "O", "forward": "d", "heading": "Hamasen"},
+    "D": { "Line": "O", "forward": "u", "heading": "Daliao"}
   }
 }

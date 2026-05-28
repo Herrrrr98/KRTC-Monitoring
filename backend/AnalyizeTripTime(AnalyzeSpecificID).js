@@ -44,7 +44,7 @@ async function AnalyizeTripTime(ID_Number) {
                             triptime_results.push({
                                 "Date": folders[repeat].name,
                                 "Class": TrainClass.Train[Number(String(fileName[3])+String(fileName[4]))-1],
-                                "heading": TrainClass.system.G,
+                                "System": TrainClass.system.G,
                                 "TripStartTime": currentStartTime,
                                 "TripEndTime": currentTime,
                                 "TripTime": String(endTimeMin-startTimeMin)+String(" Minutes")
@@ -61,7 +61,7 @@ async function AnalyizeTripTime(ID_Number) {
                             triptime_results.push({
                                 "Date": folders[repeat].name,
                                 "Class": TrainClass.Train[Number(String(fileName[3])+String(fileName[4]))-1],
-                                "heading": TrainClass.system.S,
+                                "System": TrainClass.system.S,
                                 "TripStartTime": currentStartTime,
                                 "TripEndTime": currentTime,
                                 "TripTime": String(endTimeMin-startTimeMin)+String(" Minutes")
@@ -78,7 +78,7 @@ async function AnalyizeTripTime(ID_Number) {
                             triptime_results.push({
                                 "Date": folders[repeat].name,
                                 "Class": TrainClass.Train[Number(String(fileName[3])+String(fileName[4]))-1],
-                                "heading": TrainClass.system.H,
+                                "System": TrainClass.system.H,
                                 "TripStartTime": currentStartTime,
                                 "TripEndTime": currentTime,
                                 "TripTime": String(endTimeMin-startTimeMin)+String(" Minutes")
@@ -95,7 +95,7 @@ async function AnalyizeTripTime(ID_Number) {
                             triptime_results.push({
                                 "Date": folders[repeat].name,
                                 "Class": TrainClass.Train[Number(String(fileName[3])+String(fileName[4]))-1],
-                                "heading": TrainClass.system.D,
+                                "System": TrainClass.system.D,
                                 "TripStartTime": currentStartTime,
                                 "TripEndTime": currentTime,
                                 "TripTime": String(endTimeMin-startTimeMin)+String(" Minutes")

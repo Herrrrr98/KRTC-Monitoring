@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../theme.css';
+import { AnalyzedTripTimeCard } from '../AnalyzedTripTimeCard';
 
 export default function PageView() {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export default function PageView() {
   }
 
   return (
-    <div style={{ padding: '20px', color: 'var(--text-main)' }}>
+    <div style={{ padding: '20px', color: 'var(--text-main)', backgroundColor: 'var(--bg-trainLiveBox)'}}>
       <button 
         style={{ backgroundColor: 'var(--bg-btn)', color: 'var(--text-main)', border: '1px solid var(--border-color)', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }} 
         onClick={() => navigate('/')}
@@ -40,15 +41,17 @@ export default function PageView() {
       </button>
       
       <div style={{ marginTop: '15px', color: '#000000' }}>
-        ID: <span style={{ color: 'var(--text-orange)' }}>{id}</span>
+         <span style={{ color: 'var(--text-orange)' }}>ID: {id}</span>
       </div>
       
       <div style={{ marginTop: '20px', padding: '15px', background: 'var(--bg-panel)', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
         <h3 style={{ margin: '0 0 10px 0', color: 'var(--text-main)' }}>result：</h3>
         {analyzedData ? (
-          <pre style={{ maxHeight: '400px', overflow: 'auto', margin: '0', whiteSpace: 'pre-wrap', wordBreak: 'break-all', color: 'var(--text-meta)' }}>
+          <div>
+            <pre style={{ maxHeight: '400px', overflow: 'auto', margin: '0', whiteSpace: 'pre-wrap', wordBreak: 'break-all', color: 'var(--text-meta)' }}>
             {JSON.stringify(analyzedData, null, 2)}
           </pre>
+          </div>
         ) : (
           <p style={{ color: 'var(--text-meta)' }}>loading...</p>
         )}

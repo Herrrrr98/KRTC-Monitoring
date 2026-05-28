@@ -8,7 +8,7 @@ export function LiveCard({ train, index }) {
     const colorClass = isOrange ? styles.textOrange : styles.textRed;
 
     const handle_click = (id) => {
-        navigate('/page', {
+        navigate('/TripTimeOverview', {
             state: { id }
         });
     };
