@@ -21,6 +21,7 @@ async function getdata(reqcount){
             trains.push({
                 "TrainID": String(data.d.Result[a].TrainID).padStart(2,"0"),
                 "Line": data.d.Result[a].LineNo,
+                "Forwarding": data.d.Result[a].Forward,
                 "WhereItWas": data.d.Result[a].Station
             });
             String(data.d.Result[a].LineNo) === "O" ? Onum++ : Rnum++;

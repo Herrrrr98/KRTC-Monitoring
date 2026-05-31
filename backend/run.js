@@ -25,11 +25,11 @@ async function* app(){
     while(start_app){
         const dailyFolder = path.join(base_path, curnt_time(true));
         try{
-            fs.readdirSync(dailyFolder, { recursive: true });
+            fs.readdirSync(dailyFolder);
         }catch(e){
             console.warn(e);
             try {
-                fs.mkdirSync(dailyFolder);
+                fs.mkdirSync(dailyFolder, { recursive: true });
                 console.log("ERROR has been solved:");
                 console.log(`${dailyFolder} is Created. Please Wait for Starting`);
                 keep_alive = true;
