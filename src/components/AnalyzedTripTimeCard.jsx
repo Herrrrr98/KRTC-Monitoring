@@ -1,10 +1,10 @@
-import styles from './components/LiveCard.module.css'
-import './theme.css';
+import styles from './LiveCard.module.css'
+import '../theme.css';
 import { useNavigate } from 'react-router-dom';
 
 export function AnalyzedTripTimeCard({ AnalyzedData , index }) {
     const navigate = useNavigate();
-    const isOrange = AnalyzedData.System.Line === 'O';
+    const isOrange = AnalyzedData.System?.Line === 'O';
     const colorClass = isOrange ? styles.textOrange : styles.textRed;
 
     return (

@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../theme.css';
-import { AnalyzedTripTimeCard } from '../AnalyzedTripTimeCard';
+import { AnalyzedTripTimeCard } from '../components/AnalyzedTripTimeCard';
 
 export default function PageView() {
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = location.state || {}; 
   const [analyzedData, setAnalyzedData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!id) return;
     const fetchData = async () => {
       try {
         const result = await window.api.getAnalyzedData(id);
-        setAnalyzedData(result);
+        setAnalyzedData(result.data);
       } catch (error) {
         console.error("Err when calling window.api:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
@@ -44,17 +47,20 @@ export default function PageView() {
          <span style={{ color: 'var(--text-orange)' }}>ID: {id}</span>
       </div>
       
-      <div style={{ marginTop: '20px', padding: '15px', background: 'var(--bg-panel)', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+      <div style={{ marginTop: '20px', padding: '15px', background: 'var(--bg-panel)', borderRadius: '6px', border: '1px solid var(--border-color)',height: '100vh', flexDirection: 'row'}}>
         <h3 style={{ margin: '0 0 10px 0', color: 'var(--text-main)' }}>result：</h3>
-        {analyzedData ? (
-          <div>
-            <pre style={{ maxHeight: '400px', overflow: 'auto', margin: '0', whiteSpace: 'pre-wrap', wordBreak: 'break-all', color: 'var(--text-meta)' }}>
-            {JSON.stringify(analyzedData, null, 2)}
-          </pre>
-          </div>
+        { isLoading ? (
+          <h2>Loading Data...</h2>
         ) : (
-          <p style={{ color: 'var(--text-meta)' }}>loading...</p>
-        )}
+          Array.isArray(analyzedData) && analyzedData.length > 0 ? (
+            analyzedData.map((d, index) => (
+              <AnalyzedTripTimeCard key={d.Date || index} AnalyzedData={d} index={index}></AnalyzedTripTimeCard>
+            ))
+          ) : (
+            <h2>No Analyzed Data</h2>
+          )
+        )
+        }
       </div>
     </div>
   );
