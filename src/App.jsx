@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 // import { ExampleView } from './views/ExampleView '
 import MainView from './views/MainView'
 import PageView from './views/TripTimeOverview'
+import SwitchMachineDetectorOverview from './components/SwitchMachineDetectorOverview'
 
 // 路由操作部分
 // 可以用link指令來切換
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/" element={<MainView />} />
         {/* <Route path="/example" element={<ExampleView />} /> */}
         <Route path='/TripTimeOverview' element={<PageView />} />
+        <Route path='/SwitchMachineDetectorOverview' element={<SwitchMachineDetectorOverview />} />
         <Route path="*" element={<h1>404 Not Found...</h1>} />
       </Routes>
     </BrowserRouter>

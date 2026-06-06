@@ -9,9 +9,9 @@ export function HeaderDashboard({
   return (
     <div className={styles.headerDashboard}>
       <div className={styles.metaRow}>
-          <span>last refresh: {lastRefreshTime}</span>
-          <span>refresh rate: {refreshRate} sec</span>
-          <span>total request: {totalRequest}</span>
+          <span>Last Refresh: {lastRefreshTime}</span>
+          <span>Refresh Rate: {refreshRate} sec</span>
+          <span>Total Request: {totalRequest}</span>
       </div>
       <div className={styles.statsGrid}>
         <StatBox label="Trains Online" value={`${trainsTotal} in total`} type="green" />

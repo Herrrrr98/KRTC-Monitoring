@@ -1,7 +1,8 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const { load_train_data } = require('./commads/traindata');
-const { load_analyze } = require('./commads/analyze')
+const { load_analyze } = require('./commads/analyze');
+const { load_SwitchMachineBehavior } = require('./commads/switchmachinebehavior');
 
 // 區分生產環境與Dev環境
 const isDev = !app.isPackaged;
@@ -34,6 +35,7 @@ app.whenReady().then(() => {
     createWindow();
     load_train_data(mainWindow);
     load_analyze();
+    load_SwitchMachineBehavior();
 })
 
 // 給macOS用的...

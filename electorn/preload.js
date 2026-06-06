@@ -1,6 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
-// 註冊一下方法
+
 contextBridge.exposeInMainWorld('api', {
 	onKrtcUpdate: (callback) => {
     	const subscription = (event, data) => callback(data);
@@ -11,5 +11,6 @@ contextBridge.exposeInMainWorld('api', {
 		ipcRenderer.send('ready-to-monitor');
 	},
 	getLatestData: () => ipcRenderer.invoke('get-latest-krtc-data'),
-	getAnalyzedData: (id) => ipcRenderer.invoke('get-analyzed-data', id)
+	getAnalyzedData: (id) => ipcRenderer.invoke('get-analyzed-data', id),
+	getSwitchMachineBehavior: () => ipcRenderer.invoke('get-switchmachine-behavior')
 });

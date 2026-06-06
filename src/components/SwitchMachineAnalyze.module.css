@@ -1,0 +1,127 @@
+.behaviorCard {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color, #2d2d34);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.behaviorCard:hover {
+  transform: translateY(-2px);
+  border-color: #4f67ad !important;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+.dateBadge {
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.classInfo {
+  max-width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.85rem;
+}
+
+.classInfo strong {
+  color: #cbd5e0;
+}
+
+.transferTrack {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  align-items: center;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.systemBox {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 0.65rem;
+  color: #718096;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.OsystemValue {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--text-orange);
+}
+
+.RsystemValue {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--text-red);
+}
+
+.arrowLine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.arrowValue {
+  font-size: 0.65rem;
+  background: var(--border-color, #2d2d34);
+  color: var(--text-white);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: bold;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.OtoR_lineIndicator {
+  width: 90%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff6600, #ff0000);
+  position: absolute;
+  top: 65%;
+  z-index: 1;
+}
+
+.RtoO_lineIndicator {
+  width: 90%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff0000, #ff6600);
+  position: absolute;
+  top: 65%;
+  z-index: 1;
+}
+
+.cardFooter {
+  font-size: 0.8rem;
+  color: #a0aec0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.cardFooter strong {
+  color: #fff;
+  margin: 0 4px;
+}

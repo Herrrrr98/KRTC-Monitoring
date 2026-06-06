@@ -31,14 +31,14 @@ export function LeftContainer() {
     if (window.api && typeof window.api.getLatestData === 'function') {
       window.api.getLatestData().then((cachedReport) => {
         if (cachedReport) {
-          console.log("成功從後端快取恢復資料", cachedReport);
+          console.log("Get backend data Successfully", cachedReport);
           updateUiState(cachedReport);
         }
       });
     }
 
     const unsubscribe = window.api.onKrtcUpdate((report) => {
-      console.log("get krtc info from stream", report);
+      console.log("Cache krtc info from stream", report);
       updateUiState(report);
     });
 
