@@ -12,5 +12,6 @@ contextBridge.exposeInMainWorld('api', {
 	},
 	getLatestData: () => ipcRenderer.invoke('get-latest-krtc-data'),
 	getAnalyzedData: (id) => ipcRenderer.invoke('get-analyzed-data', id),
-	getSwitchMachineBehavior: () => ipcRenderer.invoke('get-switchmachine-behavior')
+	getSwitchMachineBehavior: () => ipcRenderer.invoke('get-switchmachine-behavior'),
+	getHistoricalData: (dateString) => ipcRenderer.invoke('get-historical-data', dateString)
 });

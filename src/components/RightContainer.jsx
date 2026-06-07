@@ -6,6 +6,7 @@ export function RightContainer() {
   return (
     <div className={styles.rightNavBox}>
       <NavTPBtn name="Switch Machine Detctor" path="/SwitchMachineDetectorOverview"></NavTPBtn>
+      <NavTPBtn name="ReplayDashboard" path="/ReplayDashboard"></NavTPBtn>
     </div>
   )
 }

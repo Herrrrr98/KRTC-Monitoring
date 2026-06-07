@@ -3,6 +3,7 @@ const path = require('path')
 const { load_train_data } = require('./commads/traindata');
 const { load_analyze } = require('./commads/analyze');
 const { load_SwitchMachineBehavior } = require('./commads/switchmachinebehavior');
+const { load_getHistoricData } = require('./commads/getHistoricData');
 
 // 區分生產環境與Dev環境
 const isDev = !app.isPackaged;
@@ -36,6 +37,7 @@ app.whenReady().then(() => {
     load_train_data(mainWindow);
     load_analyze();
     load_SwitchMachineBehavior();
+    load_getHistoricData();
 })
 
 // 給macOS用的...
