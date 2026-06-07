@@ -9,6 +9,7 @@
   justify-content: space-between;
   height: 75px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .liveCard:hover {
@@ -42,4 +43,9 @@
 
 .textOrange {
   color: var(--text-orange);
+}
+
+.flashBlue {
+  border-color: #3182ce !important;
+  box-shadow: 0 0 10px rgba(49, 130, 206, 0.6);
 }

@@ -1,5 +1,3 @@
-// 之後這部分應該是不太需要動了
-
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'

@@ -57,7 +57,7 @@ export default function PageView() {
         paddingRight: '10px',
         paddingBottom: '40px'
       }}>
-        <h3 style={{ margin: '0 0 10px 0', color: 'var(--text-main)' }}>result：</h3>
+        <h3 style={{ margin: '0 0 10px 0', color: 'var(--text-main)' }}>result:</h3>
         { isLoading ? (
           <h2>Loading Data...</h2>
         ) : (

@@ -8,7 +8,7 @@ export function LeftContainer() {
   const [trainData, setTrainData] = useState([]);
   const [apiMeta, setApiMeta] = useState({
     lest_refresh: "00:00",
-    refresh_rate: 30000,
+    refresh_rate: 20000,
     reqcount: 0,
     rNum: 0,
     oNum: 0
@@ -19,7 +19,7 @@ export function LeftContainer() {
       setTrainData(report.trains);
       setApiMeta({
         lest_refresh: report.lest_refresh || "00:00",
-        refresh_rate: report.refresh_rate || 30000,
+        refresh_rate: report.refresh_rate || 20000,
         reqcount: report.reqcount || 0,
         rNum: report.rNum || 0,
         oNum: report.oNum || 0

@@ -23,6 +23,7 @@ async function* app(){
         start_app = false;
     }};
     while(start_app){
+        const LoopDate = curnt_time(true);
         const dailyFolder = path.join(base_path, curnt_time(true));
         try{
             fs.readdirSync(dailyFolder);
@@ -41,33 +42,27 @@ async function* app(){
         }};
         //--------------------------------------------------------
         var is_first_run = true;
-
+        keep_alive = true;
         while(keep_alive){
-            // console.log('\x1B[2J\x1B[3J\x1B[H\x1Bc');
+            if(curnt_time(true) !== LoopDate){
+                console.log(`[Time] Midnight detected. Initializing Preparation...`)
+                keep_alive = false;
+                break;
+            };
+
             if (!is_first_run) {
                 if(keep_alive) await sleep(config.timeouts.main_app);
             } else {
                 is_first_run = false;
-            }
+            };
 
             var d = await getdata(reqcount);
             if(d.alive){
                 reqcount = d.data.req_count;
             }else{
-                keep_alive = false;
+                console.error(`[API Target Error] Returned unexpected data at ${curnt_time()}. Content: `, d.data);
                 continue;
             };
-
-            var Data_Analyized = { alive: true, data: null };
-            const isResting = (reqcount % 4 !== 0);
-
-            if (!isResting) {
-                Data_Analyized = await AnalyizeTripTIme();
-                if(!Data_Analyized.alive){
-                    keep_alive = false;
-                    continue;
-                }
-            }
 
             console.log(
                 `Testing:\n`+
@@ -75,9 +70,7 @@ async function* app(){
                 `refresh_rate: ${config.timeouts.main_app / 1000}\n` +
                 `Rnum: ${d.data.R}\n`+
                 `Onum: ${d.data.O}\n`+
-                `Reqcount: ${d.data.req_count}\n`+
-                `Analyized Data:\n`+
-                (reqcount % 4 == 0 ? JSON.stringify(Data_Analyized.data, null, 2) : "Resting")
+                `Reqcount: ${d.data.req_count}\n`
             );
             console.log(d.data.Trains);
 
@@ -85,11 +78,9 @@ async function* app(){
                 reqcount: reqcount,
                 rNum: d.data.R,
                 oNum: d.data.O,
-                analyizedData: Data_Analyized.data,
                 trains: d.data.Trains,
                 refresh_rate: config.timeouts.main_app,
-                lest_refresh: curnt_time(),
-                isResting: (reqcount % 4 !== 0)
+                lest_refresh: curnt_time()
             };
         }
     }
