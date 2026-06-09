@@ -61,7 +61,7 @@ async function* app(){
                 reqcount = d.data.req_count;
             }else{
                 console.error(`[API Target Error] Returned unexpected data at ${curnt_time()}. Content: `, d.data);
-                continue;
+                break;
             };
 
             console.log(

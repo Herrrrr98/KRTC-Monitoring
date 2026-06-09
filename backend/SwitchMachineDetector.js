@@ -24,7 +24,10 @@ async function SwitchMachineDetector() {
                 contents.splice(0,1); //(contents[0] is empty, causing train&time would lose a data.)
                 var train = [], time = [];
                 for(let analytics_foreach = 0; analytics_foreach < contents.length; analytics_foreach++){
-                    train.push(contents[analytics_foreach].split(" | ")[1].trim());
+
+                    const stationRaw = contents[analytics_foreach].split(" | ")[1].trim();
+                    const [stationName, forwardDir] = stationRaw.split("_");
+                    train.push(stationName);
                     time.push(contents[analytics_foreach].split(" | ")[0].trim());
                 };
                 for(let i = 0; i < train.length-1; i++){ //There's no data after train[train.length-1], thus set the limit to train.length-1

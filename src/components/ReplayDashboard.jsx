@@ -8,7 +8,7 @@ export default function ReplayDashboard() {
     const [historicalData, setHistoricalData] = useState([]);
     const [activeTrains, setActiveTrains] = useState([]);
     
-    const targetDate = '2026_6_6';
+    const targetDate = '2026_5_16';
 
     // Safely memoize the start/end dates so they never trigger loops
     const { startTime, endTime } = useMemo(() => {

@@ -24,7 +24,10 @@ async function AnalyizeTripTime(ID_Number) {
                 contents.splice(0,1); //(contents[0] is empty.
                 var train = [], time = [];
                 for(let analytics_foreach = 0; analytics_foreach < contents.length; analytics_foreach++){
-                    train.push(contents[analytics_foreach].split(" | ")[1].trim());
+
+                    const stationRaw = contents[analytics_foreach].split(" | ")[1].trim();
+                    const [stationName, forwardDir] = stationRaw.split("_");
+                    train.push(stationName);
                     time.push(contents[analytics_foreach].split(" | ")[0].trim());
                 };
                 var currentStartStation = null;
@@ -51,7 +54,7 @@ async function AnalyizeTripTime(ID_Number) {
                             });
                             currentStartStation = "RK1" //next start
                             currentStartTime = currentTime;
-                        }else if(currentStation === "RK1"){
+                        }else if(currentStation === "R3"){
                             currentStartTime = currentTime;
                         };
                     }else if(currentStartStation === "RK1"){

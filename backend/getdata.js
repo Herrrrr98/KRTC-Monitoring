@@ -32,7 +32,7 @@ async function getdata(reqcount){
                 `id_${trains[a].TrainID}.txt`
             );
 
-            fs.appendFileSync(file_Absolute_Path, `+ ${curnt_time()} | ${trains[a].WhereItWas} \n`);
+            fs.appendFileSync(file_Absolute_Path, `+ ${curnt_time()} | ${trains[a].WhereItWas}_${trains[a].Forwarding} \n`);
         };
     }catch(e){
         console.error(e);
