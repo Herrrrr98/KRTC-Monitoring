@@ -15,6 +15,7 @@ async function getdata(reqcount){
             },
         });
         const data = await response.json();
+        if(!data || !data.d || !data.d.Result) throw new Error("API structural error.");
         reqcount++;
         var Rnum = 0, Onum = 0, trains = [];
         for(let a = 0; a < data.d.Result.length; a++){

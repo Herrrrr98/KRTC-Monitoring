@@ -4,6 +4,7 @@ const { load_train_data } = require('./commads/traindata');
 const { load_analyze } = require('./commads/analyze');
 const { load_SwitchMachineBehavior } = require('./commads/switchmachinebehavior');
 const { load_getHistoricData } = require('./commads/getHistoricData');
+const { load_DateFolders } =require('./commads/load_DateFolders');
 
 // 區分生產環境與Dev環境
 const isDev = !app.isPackaged;
@@ -38,6 +39,7 @@ app.whenReady().then(() => {
     load_analyze();
     load_SwitchMachineBehavior();
     load_getHistoricData();
+    load_DateFolders()
 })
 
 // 給macOS用的...

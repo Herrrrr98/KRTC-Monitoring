@@ -5,6 +5,7 @@
   "Requesting_Target_URL": "https://activity.krtc.com.tw/Activity/measygo/map/Map.aspx/showMRTTrain",
   "timeouts":{
     "main_app": 20000,
-    "restore_when_starting": 10000
+    "restore_when_starting": 10000,
+    "timeout_between_rendering_trains": 2000
   }
 }

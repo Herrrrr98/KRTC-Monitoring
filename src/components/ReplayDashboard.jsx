@@ -1,3 +1,4 @@
+//This jsx was mostly created by Gemini.
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ReplayController } from './ReplayController'; 
@@ -7,35 +8,69 @@ export default function ReplayDashboard() {
     const navigate = useNavigate();
     const [historicalData, setHistoricalData] = useState([]);
     const [activeTrains, setActiveTrains] = useState([]);
-    
-    const targetDate = '2026_5_16';
+    const [availableDates, setAvailableDates] = useState([]);
+    const [targetDate, setTargetDate] = useState('');
 
-    // Safely memoize the start/end dates so they never trigger loops
+    useEffect(() => {
+        const loadFolders = async () => {
+            try {
+                const Folders = await window.api.getDateFolders();
+                const folders = Folders.data;
+                if (folders && folders.length > 0) {
+                    
+                    folders.sort((a, b) => {
+                        const [yA, mA, dA] = a.split('_').map(Number);
+                        const [yB, mB, dB] = b.split('_').map(Number);
+                        return new Date(yB, mB - 1, dB) - new Date(yA, mA - 1, dA);
+                    });
+
+                    setAvailableDates(folders);
+                    setTargetDate(folders[0]);
+                }
+            } catch (error) {
+                console.error("Failed to fetch available date folders:", error);
+            }
+        };
+        loadFolders();
+    }, []);
+
     const { startTime, endTime } = useMemo(() => {
+        if (!targetDate) {
+            return { startTime: new Date(), endTime: new Date() };
+        }
         const [year, month, day] = targetDate.split('_');
         const safeDateString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`; 
         return {
-            startTime: new Date(`${safeDateString}T06:00:00`),
+            startTime: new Date(`${safeDateString}T00:00:00`),
             endTime: new Date(`${safeDateString}T23:59:59`)
         };
     }, [targetDate]);
 
-    // Fetch the data exactly once
     useEffect(() => {
         const fetchHistory = async () => {
+            if (!targetDate) return;
             try {
                 const data = await window.api.getHistoricalData(targetDate);
-                if (data) setHistoricalData(data);
+                if (data && data.length > 0) {
+                    setHistoricalData(data);
+                } else {
+                    setHistoricalData([]);
+                    setActiveTrains([]);
+                }
             } catch (error) {
-                console.error("Failed to load history:", error);
+                console.error("Failed to load history for date folder:", targetDate, error);
+                setHistoricalData([]);
+                setActiveTrains([]);
             }
         };
         fetchHistory();
     }, [targetDate]);
 
-    // Safely calculate train positions based on the incoming clock tick
     const handleTimeUpdate = useCallback((currentSimDate) => {
-        if (!historicalData || historicalData.length === 0) return;
+        if (!historicalData || historicalData.length === 0) {
+            setActiveTrains([]);
+            return;
+        }
 
         const currentPositions = historicalData.map(train => {
             const logsArray = train.logs || train.timeline || [];
@@ -46,7 +81,7 @@ export default function ReplayDashboard() {
                 
                 const [hours, minutes, seconds] = log.time.split(':');
                 const logTime = new Date(currentSimDate);
-                logTime.setHours(parseInt(hours), parseInt(minutes || 0), parseInt(seconds || 0));
+                logTime.setHours(parseInt(hours, 10), parseInt(minutes || 0, 10), parseInt(seconds || 0, 10));
                 
                 return logTime <= currentSimDate;
             });
@@ -57,23 +92,52 @@ export default function ReplayDashboard() {
             return null;
         }).filter(t => t !== null);
 
-        // Anti-Loop Protection: Only update React state if the trains ACTUALLY moved
         setActiveTrains(prev => {
             if (JSON.stringify(prev) === JSON.stringify(currentPositions)) return prev;
             return currentPositions;
         });
     }, [historicalData]);
 
+    if (availableDates.length === 0 || !targetDate) {
+        return (
+            <div style={{ padding: '20px', minHeight: '100vh', backgroundColor: '#1a202c', color: '#fff' }}>
+                <p>Scanning directory for historical date folders...</p>
+            </div>
+        );
+    }
+
     return (
-        <div style={{ padding: '20px', minHeight: '100vh', backgroundColor: '#1a202c' }}>
+        <div style={{ padding: '20px', minHeight: '100vh', backgroundColor: 'var(--bg-panel, )' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
                 <button 
                     style={{ backgroundColor: '#4a5568', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }} 
                     onClick={() => navigate('/')}
                 >
-                    ⬅ Home
+                    Home
                 </button>
-                <h2 style={{ color: '#ecc94b', margin: 0 }}>Historical Map Replay ({targetDate})</h2>
+                <h2 style={{ color: '#ecc94b', margin: 0 }}>Historical Map Replay</h2>
+
+                {/* Dynamic Dropdown Selection bound directly to your backend directory strings */}
+                <select 
+                    value={targetDate}
+                    onChange={(e) => setTargetDate(e.target.value)}
+                    style={{
+                        padding: '8px 12px',
+                        borderRadius: '6px',
+                        border: '1px solid #ecc94b',
+                        backgroundColor: '#2d3748',
+                        color: 'white',
+                        fontSize: '16px',
+                        cursor: 'pointer',
+                        outline: 'none'
+                    }}
+                >
+                    {availableDates.map((dateString) => (
+                        <option key={dateString} value={dateString}>
+                            {dateString.replace(/_/g, ' / ')}
+                        </option>
+                    ))}
+                </select>
             </div>
             
             <ReplayController 
@@ -83,7 +147,6 @@ export default function ReplayDashboard() {
             />
 
             <div style={{ marginTop: '20px' }}>
-                {/* REMEMBER: Your giant SVG code needs to be pasted back inside KrtcMapSvg.jsx! */}
                 <KrtcMapSvg activeTrains={activeTrains} />
             </div>
         </div>

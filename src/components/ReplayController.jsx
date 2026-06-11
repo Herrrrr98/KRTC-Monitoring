@@ -1,4 +1,8 @@
+//This jsx was mostly created by Gemini.
 import React, { useState, useEffect } from 'react';
+import config from '../../config.json'
+const fetching_data_period = config.timeouts.main_app / 1000;
+const timeout_between_rendering_trains = config.timeouts.timeout_between_rendering_trains;
 
 export function ReplayController({ onTimeUpdate, startTime, endTime }) {
     const startMs = startTime.getTime();
@@ -6,15 +10,13 @@ export function ReplayController({ onTimeUpdate, startTime, endTime }) {
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTimeMs, setCurrentTimeMs] = useState(startMs);
-    const [playbackSpeed, setPlaybackSpeed] = useState(1); 
+    const [playbackSpeed, setPlaybackSpeed] = useState(fetching_data_period); 
 
-    // Sync if parent changes the start date
     useEffect(() => {
         setCurrentTimeMs(startMs);
         setIsPlaying(false);
     }, [startMs]);
 
-    // 1. The Clock Engine
     useEffect(() => {
         let interval;
         if (isPlaying) {
@@ -27,13 +29,11 @@ export function ReplayController({ onTimeUpdate, startTime, endTime }) {
                     }
                     return nextMs;
                 });
-            }, 1000);
+            }, timeout_between_rendering_trains);
         }
         return () => clearInterval(interval);
     }, [isPlaying, playbackSpeed, endMs]);
 
-    // ✨ THE FIX: Safe transmission to parent!
-    // This strictly runs AFTER the component renders, keeping React happy.
     useEffect(() => {
         onTimeUpdate(new Date(currentTimeMs));
     }, [currentTimeMs, onTimeUpdate]);
@@ -71,7 +71,8 @@ export function ReplayController({ onTimeUpdate, startTime, endTime }) {
                 value={playbackSpeed} 
                 onChange={(e) => setPlaybackSpeed(Number(e.target.value))}
                 style={{ padding: '6px', borderRadius: '4px' }}
-            >
+            >   
+                <option value={fetching_data_period}>As the program updates</option>
                 <option value={1}>1x Speed</option>
                 <option value={5}>5x Speed</option>
                 <option value={30}>30x Speed (1 min/sec)</option>
