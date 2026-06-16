@@ -7,23 +7,25 @@
   </p>
 </div>
 
-## 🌟 Overview
+##  Overview
 
-KRTC Monitoring is a program dedicated to analyze and to record actions of trains of KRTC(MRT).
+KRTC Monitoring is a program dedicated to analyzing and recording the actions of KRTC (MRT) trains.
 
-## ✨ Features
+[別裝了!說人話!](#簡介)
+
+##  Features
 
 -  **Where Is the Train** - The main window would show the current location of trains.
--  **Where Was the Train** - The program would fetch data from KRTC Official and save them properly.
--  **SwitchMachineBehavior** - This program would analyze the trains' actions, which in trun indicates the behaviors of switchmachine.
+-  **Where Was the Train** - The program would fetch data from the KRTC Official and save it properly.
+-  **SwitchMachineBehavior** - This program would analyze the trains' actions, which in turn indicate the behaviors of the switch machine.
 -  **PlayBack** - Thanks to saving data aforementioned, the program is able to playback the trains on the map.
 -  **More functions** - We'll keep developing it well!
 
-## 🎯 Quick Start
+##  Quick Start
 
 ### Requirements:
 
-- Node.js (v22 Recommanded)
+- Node.js (v22 Recommended)
 - npm
 - Git
 
@@ -125,3 +127,40 @@ I'm just a high schooler from Kaohsiung, Taiwan. Help yourself, sorry.
 
 - 📧 Email: 140527@student.kshs.kh.edu.tw
 ---
+
+##  簡介
+
+
+
+##  功能
+
+-  **Where Is the Train** - The main window would show the current location of trains.
+-  **Where Was the Train** - The program would fetch data from the KRTC Official and save it properly.
+-  **SwitchMachineBehavior** - This program would analyze the trains' actions, which in turn indicate the behaviors of the switch machine.
+-  **PlayBack** - Thanks to saving data aforementioned, the program is able to playback the trains on the map.
+-  **More functions** - We'll keep developing it well!
+
+## 🎯 如何開始
+
+### 軟體要求:
+
+- Node.js (v22 Recommended)
+- npm
+- Git
+
+### 安裝
+
+1. **克隆專案**
+   ```bash
+   git clone https://github.com/Herrrrr98/KRTC-Monitoring.git
+   ```
+
+2. **將依賴模組安裝**
+   ```bash
+   npm install
+   ```
+
+3. **執行**
+   ```bash
+   npm start
+   ```
