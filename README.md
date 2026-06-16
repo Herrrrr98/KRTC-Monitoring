@@ -31,7 +31,6 @@ KRTC Monitoring is a program dedicated to analyze and to record actions of train
 
 1. **Clone the repository**
    ```bash
-   cd {project_name}
    git clone https://github.com/Herrrrr98/KRTC-Monitoring.git
    ```
 
@@ -116,7 +115,7 @@ KRTC-Monitorin/
 
 ## 🤝 Contributing
 
-I'm just a high schooler in Taiwan. Help yourself, sorry.
+I'm just a high schooler from Kaohsiung, Taiwan. Help yourself, sorry.
 
 ## 🏆 Contributors
 
