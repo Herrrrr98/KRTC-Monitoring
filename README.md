@@ -47,7 +47,6 @@ KRTC Monitoring is a program dedicated to analyze and to record actions of train
 ##  Project Structure
 
 ```
-KRTC-Monitorin/
 ├── backend
 │   ├── AnalyizeTripTime(AnalyzeSpecificID).js
 │   ├── AnalyizeTripTime.js
@@ -61,11 +60,10 @@ KRTC-Monitorin/
 ├── electorn
 │   ├── commands
 │   │   ├── analyze.js
-│   │   ├── getHistoricData.js
+│   │   ├── getHistoricalData.js
 │   │   ├── load_DateFolders.js
 │   │   ├── switchmachinebehavior.js
 │   │   └── traindata.js
-│   ├── icon.png
 │   ├── main.js
 │   └── preload.js
 ├── src
@@ -91,7 +89,9 @@ KRTC-Monitorin/
 │   │   ├── SwitchMachineAnalyze.module.css
 │   │   ├── SwitchMachineDetectorOverview.jsx
 │   │   ├── TrainLiveBox.jsx
-│   │   ├── TrainLiveBox.module.css
+│   │   └── TrainLiveBox.module.css
+│   ├── images
+│   │   ├── icon.png
 │   │   ├── mrt_O.png
 │   │   ├── mrt_O2.png
 │   │   ├── mrt_R.png
