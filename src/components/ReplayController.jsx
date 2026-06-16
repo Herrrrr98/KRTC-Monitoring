@@ -48,10 +48,10 @@ export function ReplayController({ onTimeUpdate, startTime, endTime }) {
     const formatTime = (ms) => new Date(ms).toLocaleTimeString('en-US', { hour12: false });
 
     return (
-        <div style={{ background: '#2d3748', padding: '15px', borderRadius: '8px', color: 'white', display: 'flex', gap: '15px', alignItems: 'center' }}>
+        <div style={{ background: 'var(--bg-btn)', padding: '15px', borderRadius: '8px', color: 'white', display: 'flex', gap: '15px', alignItems: 'center' }}>
             <button 
                 onClick={handlePlayToggle}
-                style={{ padding: '8px 16px', cursor: 'pointer', borderRadius: '4px', border: 'none', background: '#4a5568', color: 'white' }}
+                style={{ padding: '8px 16px', cursor: 'pointer', borderRadius: '4px', border: 'none', background: '#232323', color: 'white' }}
             >
                 {isPlaying ? '⏸ Pause' : '▶ Play'}
             </button>

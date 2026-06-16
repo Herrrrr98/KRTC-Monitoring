@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import TrData from '../../backend/KRTC-TrData.json';
-import imgR from './mrt_R.png';
-import imgO_d from './mrt_O.png';
-import imgO_u from './mrt_O2.png';
+import imgR from '../images/mrt_R.png';
+import imgO_d from '../images/mrt_O.png';
+import imgO_u from '../images/mrt_O2.png';
 
 const R_STATIONS = TrData.lines.R;
 const O_STATIONS = TrData.lines.O;
@@ -71,11 +71,12 @@ export function KrtcMapSvg({ activeTrains }) {
                     drawX += 20; 
                     imgSrc = imgR;
                     angle = 90;
+                    textTransform = "translate(18, 0) rotate(90)";
                 } else {
                     drawX -= 20; 
                     imgSrc = imgR;
                     angle = 270;
-                    textTransform = "translate(-18, 0) rotate(90)";
+                    textTransform = "translate(-18, 0) rotate(270)";
                 }
             } else if (targetStation.line === 'O') {
                 if (isUpstream) {
@@ -107,7 +108,7 @@ export function KrtcMapSvg({ activeTrains }) {
         <div style={{ 
             width: '100%', 
             height: '750px', 
-            backgroundColor: '#1E2227', 
+            backgroundColor: '#171a1d', 
             borderRadius: '12px',
             border: '1px solid #444',
             overflow: 'hidden' 

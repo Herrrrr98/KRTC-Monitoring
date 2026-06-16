@@ -110,12 +110,12 @@ export default function ReplayDashboard() {
         <div style={{ padding: '20px', minHeight: '100vh', backgroundColor: 'var(--bg-panel, )' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
                 <button 
-                    style={{ backgroundColor: '#4a5568', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }} 
+                    style={{ backgroundColor: 'var(--bg-btn)', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }} 
                     onClick={() => navigate('/')}
                 >
                     Home
                 </button>
-                <h2 style={{ color: '#ecc94b', margin: 0 }}>Historical Map Replay</h2>
+                <h2 style={{ color: '#a0aec0', margin: 0 }}>Historical Map Replay</h2>
 
                 {/* Dynamic Dropdown Selection bound directly to your backend directory strings */}
                 <select 
@@ -125,7 +125,7 @@ export default function ReplayDashboard() {
                         padding: '8px 12px',
                         borderRadius: '6px',
                         border: '1px solid #ecc94b',
-                        backgroundColor: '#2d3748',
+                        backgroundColor: 'var(--bg-btn)',
                         color: 'white',
                         fontSize: '16px',
                         cursor: 'pointer',

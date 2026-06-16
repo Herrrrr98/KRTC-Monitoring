@@ -14,5 +14,5 @@ contextBridge.exposeInMainWorld('api', {
 	getAnalyzedData: (id) => ipcRenderer.invoke('get-analyzed-data', id),
 	getSwitchMachineBehavior: () => ipcRenderer.invoke('get-switchmachine-behavior'),
 	getHistoricalData: (dateString) => ipcRenderer.invoke('get-historical-data', dateString),
-	getDateFolders: () => ipcRenderer.invoke('get-DateFolders'),
+	getDateFolders: () => ipcRenderer.invoke('get-DateFolders'), 
 });

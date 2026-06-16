@@ -5,7 +5,7 @@ const { ipcMain } = require('electron');
 const config = require('../../config.json');
 
 
-function load_getHistoricData(){
+function load_getHistoricalData(){
     ipcMain.handle('get-historical-data', async (event, dateString) => {
     const folderPath = path.resolve(process.cwd(), "backend", config.src_Folder, dateString);
     console.log("Checking folder path:", folderPath);
@@ -38,4 +38,4 @@ function load_getHistoricData(){
 });
 };
 
-module.exports = { load_getHistoricData };
+module.exports = { load_getHistoricalData };
