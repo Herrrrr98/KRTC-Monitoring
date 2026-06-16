@@ -80,7 +80,7 @@ export default function SwitchMachineDetectorOverivew() {
                                     <div className={styles.cardHeader}>
                                         <span className={styles.dateBadge}>📅 {item.Date}</span>
                                         <span className={styles.classInfo}>
-                                            { displayClass === "Could Not get the Class Number due to source file errors" ? <span> <strong> Source File Error </strong>(Possibly due to KRTC failing to set train ID) </span> : <span> Train ID: <strong title={displayClass}>{displayClass}</strong> </span>}
+                                            { displayClass === "Could Not get the Class Number due to source file errors" ? <span style={{ color: '#ff3b3b' }}> Source File Error (Possibly due to KRTC failing to set train ID) </span> : <span> Train ID: <strong title={displayClass}>{displayClass}</strong> </span>}
                                         </span>
                                     </div>
 
